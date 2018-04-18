@@ -4,8 +4,8 @@
  * Date: April 2018
  * 
  * Code and assets are copyright Jackalsoft Games, or their respective
- * owners. No warranty (express or implied) is granted. See README for
- * full license terms.
+ * owners. No warranty (express or implied) is granted.
+ * The Squish Framework is released under the GPLv3 license.
  */
 #endregion
 #region using
