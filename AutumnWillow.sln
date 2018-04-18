@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutumnWillow", "AutumnWillow\AutumnWillow.csproj", "{13C08BD5-6566-4CF8-A228-2B46D4266591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squish", "Squish\Squish.csproj", "{650DB090-308C-4747-867E-1137B0BAD67F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|x86 = Default|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13C08BD5-6566-4CF8-A228-2B46D4266591}.Default|x86.ActiveCfg = Default|x86
+		{13C08BD5-6566-4CF8-A228-2B46D4266591}.Default|x86.Build.0 = Default|x86
+		{650DB090-308C-4747-867E-1137B0BAD67F}.Default|x86.ActiveCfg = Default|x86
+		{650DB090-308C-4747-867E-1137B0BAD67F}.Default|x86.Build.0 = Default|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

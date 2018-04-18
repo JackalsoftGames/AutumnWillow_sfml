@@ -1,0 +1,42 @@
+﻿Delta2/3/4 satisfy the need of a generic tuple struct class. Refactor?
+Is Bithelper128 necessary? Can we extend it somehow?
+
+TickTimer for GAME logic, not system logic
+- implement as ushort
+
+TimeStep class for system timing (timer to manage updates)
+
+EXTENSIONS
+
+	- Random extensions for circle, arc, quad, etc
+
+COLLECTIONS
+
+Certain collections, such as Queue<T> and Stack<T> do not implement ICollection<T>. Indexing the values
+or viewing the raw array should also be possible, but it isn't. Because calling foreach is less preferable
+than polling an array directly, we should create custom classes that perform this behavior. Queue should
+be implemented as a rolling array that resizes. Stack should be trivial.
+
+	- TimeStep relies on a Queue
+
+MATHEMATICS
+	Constants
+	- Float or double? Mathhelper?
+
+	MathHelper
+	- Can this be folded into something else? Can we include consts here?
+	- float-only helper functions that vectors can use
+	- min max clamp, etc
+
+	Interpolation
+	Curves
+	- Somewhat related
+	- Linear, bezier, hermite, etc etc
+
+	Noise
+	- Fractals and perlin
+	- Trig function noises?
+
+	Linear Algebra
+	- Matrix, Quaternion
+	- Vector static funcs
