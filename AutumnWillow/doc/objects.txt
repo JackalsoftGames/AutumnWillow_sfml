@@ -1,0 +1,9 @@
+﻿Sun/Moon Orb
+- Rolls, keeps rolling, heavy
+- Freezes water / melts ice?
+- When placed in receptacle, is consumed and either:
+  Sun Orb: Opens sun doors, closes moon doors
+  Moon Orb: Opens moon doors, closes sun doors
+
+Pipes/platforms/walls
+- Blocks movement to/from a particular direction

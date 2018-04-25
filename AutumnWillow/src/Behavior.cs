@@ -24,12 +24,19 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public static class Program
+    public class BehaviorArgs
     {
-        public static void Main(string[] args)
+    }
+
+    public class Behavior
+    {
+        public event EventHandler<EventArgs> Move;
+
+        public void OnMove(EventArgs args)
         {
-            var game = new Game();
-            game.Main();
+            var h = Move;
+            if (h != null)
+                h(this, args);
         }
     }
 }

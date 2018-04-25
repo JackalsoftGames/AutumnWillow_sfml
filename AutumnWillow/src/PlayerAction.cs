@@ -24,12 +24,18 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public static class Program
+    [Flags]
+    public enum PlayerAction :
+        byte
     {
-        public static void Main(string[] args)
-        {
-            var game = new Game();
-            game.Main();
-        }
+        NONE = 0,
+
+        LEFT = 0x01,
+        RIGHT = 0x02,
+        UP = 0x04,
+        DOWN = 0x08,
+
+        ACTION_PUSH = 0x10,
+        ACTION_ITEM = 0x20,
     }
 }

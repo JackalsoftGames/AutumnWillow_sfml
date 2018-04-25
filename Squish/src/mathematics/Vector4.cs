@@ -17,6 +17,10 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish.Mathematics
@@ -181,24 +185,24 @@ namespace Squish.Mathematics
         #endregion
         #region static fields
 
-        private static Vector4 m_Zero = new Vector4(0f, 0f, 0f, 0f);
-        private static Vector4 m_One = new Vector4(1f, 1f, 1f, 1f);
+        private static Vector4 s_Zero = new Vector4(0f, 0f, 0f, 0f);
+        private static Vector4 s_One = new Vector4(1f, 1f, 1f, 1f);
 
-        private static Vector4 m_UnitX = new Vector4(1f, 0f, 0f, 0f);
-        private static Vector4 m_UnitY = new Vector4(0f, 1f, 0f, 0f);
-        private static Vector4 m_UnitZ = new Vector4(0f, 0f, 1f, 0f);
-        private static Vector4 m_UnitW = new Vector4(0f, 0f, 0f, 1f);
+        private static Vector4 s_UnitX = new Vector4(1f, 0f, 0f, 0f);
+        private static Vector4 s_UnitY = new Vector4(0f, 1f, 0f, 0f);
+        private static Vector4 s_UnitZ = new Vector4(0f, 0f, 1f, 0f);
+        private static Vector4 s_UnitW = new Vector4(0f, 0f, 0f, 1f);
 
         #endregion
         #region static properties
 
-        public static Vector4 Zero { get { return m_Zero; } }
-        public static Vector4 One { get { return m_One; } }
+        public static Vector4 Zero { get { return s_Zero; } }
+        public static Vector4 One { get { return s_One; } }
 
-        public static Vector4 UnitX { get { return m_UnitX; } }
-        public static Vector4 UnitY { get { return m_UnitY; } }
-        public static Vector4 UnitZ { get { return m_UnitZ; } }
-        public static Vector4 UnitW { get { return m_UnitW; } }
+        public static Vector4 UnitX { get { return s_UnitX; } }
+        public static Vector4 UnitY { get { return s_UnitY; } }
+        public static Vector4 UnitZ { get { return s_UnitZ; } }
+        public static Vector4 UnitW { get { return s_UnitW; } }
 
         #endregion
 
@@ -237,7 +241,6 @@ namespace Squish.Mathematics
         }
 
         #endregion
-
         #region fields
 
         public float X;

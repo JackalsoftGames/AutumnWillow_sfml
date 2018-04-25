@@ -17,6 +17,10 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish.Mathematics
@@ -161,20 +165,20 @@ namespace Squish.Mathematics
         #endregion
         #region static fields
 
-        private static Vector2 m_Zero = new Vector2(0f, 0f);
-        private static Vector2 m_One = new Vector2(1f, 1f);
+        private static Vector2 s_Zero = new Vector2(0f, 0f);
+        private static Vector2 s_One = new Vector2(1f, 1f);
 
-        private static Vector2 m_UnitX = new Vector2(1f, 0f);
-        private static Vector2 m_UnitY = new Vector2(0f, 1f);
+        private static Vector2 s_UnitX = new Vector2(1f, 0f);
+        private static Vector2 s_UnitY = new Vector2(0f, 1f);
 
         #endregion
         #region static properties
 
-        public static Vector2 Zero { get { return m_Zero; } }
-        public static Vector2 One { get { return m_One; } }
+        public static Vector2 Zero { get { return s_Zero; } }
+        public static Vector2 One { get { return s_One; } }
 
-        public static Vector2 UnitX { get { return m_UnitX; } }
-        public static Vector2 UnitY { get { return m_UnitY; } }
+        public static Vector2 UnitX { get { return s_UnitX; } }
+        public static Vector2 UnitY { get { return s_UnitY; } }
 
         #endregion
 
@@ -193,7 +197,6 @@ namespace Squish.Mathematics
         }
 
         #endregion
-
         #region fields
 
         public float X;

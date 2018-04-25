@@ -17,6 +17,9 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
 #endregion
 
 namespace AutumnWillow
@@ -24,6 +27,7 @@ namespace AutumnWillow
     public static class AutumnWillowExtensions
     {
         #region Direction.Next
+
         public static Direction Next(this Direction value)
         {
             switch (value)
@@ -89,6 +93,7 @@ namespace AutumnWillow
                 default: return (value | other);
             }
         }
+
         #endregion
     }
 }

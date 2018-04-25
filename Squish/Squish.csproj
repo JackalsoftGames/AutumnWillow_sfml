@@ -48,12 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\AssetManager.cs" />
+    <Compile Include="src\Asset.cs" />
+    <Compile Include="src\StateController.cs" />
+    <Compile Include="src\extensions\SFMLExtensions.cs" />
+    <Compile Include="src\extensions\CSharpExtensions.cs" />
+    <Compile Include="src\QuadBatch.cs" />
     <Compile Include="src\Game.cs" />
-    <Compile Include="src\GameComponent.cs" />
-    <Compile Include="src\TimeStep.cs" />
     <Compile Include="src\_interfaces\IUpdateable.cs" />
     <Compile Include="src\_interfaces\ITimer.cs" />
-    <Compile Include="src\mathematics\Constants.cs" />
+    <Compile Include="src\MathHelper.cs" />
     <Compile Include="src\mathematics\Vector4.cs" />
     <Compile Include="src\mathematics\Vector3.cs" />
     <Compile Include="src\mathematics\_Vector.cs" />

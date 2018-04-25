@@ -17,6 +17,9 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
 #endregion
 
 namespace AutumnWillow

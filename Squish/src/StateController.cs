@@ -17,26 +17,42 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish
 {
-    public class GameComponent :
+    public class StateController<TState> :
         IUpdateable
     {
-        public TimeStep Timing;
+        #region constructors
 
-        public Time TimeMin;
-        public Time TimeMax;
+        public StateController(TState state)
+        {
+            if (state == null)
+                throw new ArgumentNullException("state");
+            State = state;
+        }
 
-        public bool IsRunningSlowly { get; set; }
-        public bool IsRunningQuickly { get; set; }
+        #endregion
+        #region properties
+
+        public TState State
+        {
+            get;
+            private set;
+        }
+
+        #endregion
+        #region methods
 
         public virtual void Update(Time time)
         {
-            // add time to timestep
-            // check if fast/slow
-            // call or drop an update until it sorts itself out
         }
+
+        #endregion
     }
 }

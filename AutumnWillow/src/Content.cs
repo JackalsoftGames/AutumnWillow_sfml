@@ -17,42 +17,33 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
 #endregion
 
 namespace AutumnWillow
 {
-    public struct Position
+    public class Content
     {
         #region constructors
 
-        public Position(byte x, byte y)
+        public Content()
         {
-            X = x;
-            Y = y;
+            Textures = new AssetManager<Texture>();
+            Fonts = new AssetManager<Font>();
+            Sounds = new AssetManager<SoundBuffer>();
+            Music = new AssetManager<Music>();
         }
 
         #endregion
+        #region fields
 
-        // Fields
-        public byte X;
-        public byte Y;
+        public AssetManager<Texture> Textures;
+        public AssetManager<Font> Fonts;
+        public AssetManager<SoundBuffer> Sounds;
+        public AssetManager<Music> Music;
 
-        // Methods
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-        
-        public override int GetHashCode()
-        {
-            return (Y * 256 + X);
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
+        #endregion
     }
 }

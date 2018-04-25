@@ -17,6 +17,10 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish.Mathematics
@@ -176,36 +180,36 @@ namespace Squish.Mathematics
         #endregion
         #region static fields
 
-        private static Vector3 m_Zero = new Vector3(0f, 0f, 0f);
-        private static Vector3 m_One = new Vector3(1f, 1f, 1f);
+        private static Vector3 s_Zero = new Vector3(0f, 0f, 0f);
+        private static Vector3 s_One = new Vector3(1f, 1f, 1f);
 
-        private static Vector3 m_UnitX = new Vector3(1f, 0f, 0f);
-        private static Vector3 m_UnitY = new Vector3(0f, 1f, 0f);
-        private static Vector3 m_UnitZ = new Vector3(0f, 0f, 1f);
+        private static Vector3 s_UnitX = new Vector3(1f, 0f, 0f);
+        private static Vector3 s_UnitY = new Vector3(0f, 1f, 0f);
+        private static Vector3 s_UnitZ = new Vector3(0f, 0f, 1f);
 
-        private static Vector3 m_Left = new Vector3(-1f, 0f, 0f);
-        private static Vector3 m_Right = new Vector3(1f, 0f, 0f);
-        private static Vector3 m_Up = new Vector3(0f, 1f, 0f);
-        private static Vector3 m_Down = new Vector3(0f, -1f, 0f);
-        private static Vector3 m_Forward = new Vector3(0f, 0f, -1f);
-        private static Vector3 m_Backward = new Vector3(0f, 0f, 1f);
+        private static Vector3 s_Left = new Vector3(-1f, 0f, 0f);
+        private static Vector3 s_Right = new Vector3(1f, 0f, 0f);
+        private static Vector3 s_Up = new Vector3(0f, 1f, 0f);
+        private static Vector3 s_Down = new Vector3(0f, -1f, 0f);
+        private static Vector3 s_Forward = new Vector3(0f, 0f, -1f);
+        private static Vector3 s_Backward = new Vector3(0f, 0f, 1f);
 
         #endregion
         #region static properties
 
-        public static Vector3 Zero { get { return m_Zero; } }
-        public static Vector3 One { get { return m_One; } }
+        public static Vector3 Zero { get { return s_Zero; } }
+        public static Vector3 One { get { return s_One; } }
 
-        public static Vector3 UnitX { get { return m_UnitX; } }
-        public static Vector3 UnitY { get { return m_UnitY; } }
-        public static Vector3 UnitZ { get { return m_UnitZ; } }
+        public static Vector3 UnitX { get { return s_UnitX; } }
+        public static Vector3 UnitY { get { return s_UnitY; } }
+        public static Vector3 UnitZ { get { return s_UnitZ; } }
 
-        public static Vector3 Left { get { return m_Left; } }
-        public static Vector3 Right { get { return m_Right; } }
-        public static Vector3 Up { get { return m_Up; } }
-        public static Vector3 Down { get { return m_Down; } }
-        public static Vector3 Forward { get { return m_Forward; } }
-        public static Vector3 Backward { get { return m_Backward; } }
+        public static Vector3 Left { get { return s_Left; } }
+        public static Vector3 Right { get { return s_Right; } }
+        public static Vector3 Up { get { return s_Up; } }
+        public static Vector3 Down { get { return s_Down; } }
+        public static Vector3 Forward { get { return s_Forward; } }
+        public static Vector3 Backward { get { return s_Backward; } }
 
         #endregion
 
@@ -233,7 +237,6 @@ namespace Squish.Mathematics
         }
 
         #endregion
-
         #region fields
 
         public float X;

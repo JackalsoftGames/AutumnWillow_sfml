@@ -17,6 +17,10 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish
@@ -24,6 +28,7 @@ namespace Squish
     [Serializable]
     [System.Diagnostics.DebuggerDisplay("{ToString(), nq}")]
     public struct Delta3<TValue>
+        where TValue : struct
     {
         #region constructors
 
@@ -42,7 +47,6 @@ namespace Squish
         }
 
         #endregion
-
         #region fields
 
         public TValue Current;

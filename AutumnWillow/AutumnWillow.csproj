@@ -29,16 +29,21 @@
     <StartupObject>AutumnWillow.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>res\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\extensions\AutumnWillowExtensions.cs" />
+    <Compile Include="src\Content.cs" />
+    <Compile Include="src\Actor.cs" />
+    <Compile Include="src\AutumnWillowExtensions.cs" />
     <Compile Include="src\Game.cs" />
-    <Compile Include="src\_structs\TickTimer.cs" />
-    <Compile Include="src\_structs\Position.cs" />
-    <Compile Include="src\_structs\Direction.cs" />
+    <Compile Include="src\Behavior.cs" />
+    <Compile Include="src\GameState.cs" />
+    <Compile Include="src\PlayerInventory.cs" />
+    <Compile Include="src\PlayerAction.cs" />
+    <Compile Include="src\Position.cs" />
+    <Compile Include="src\Direction.cs" />
     <Compile Include="src\Program.cs" />
     <None Include="doc\todo.txt" />
     <None Include="res\font\old_wizard.ttf">
@@ -46,7 +51,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="res\dat\" />
+    <Folder Include="res\data\" />
+    <Folder Include="res\music\" />
+    <Folder Include="res\sound\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\csfml-audio-2.dll">
@@ -117,12 +124,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\img\actor.png">
+    <None Include="res\image\actor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="doc\README" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Squish\Squish.csproj">
@@ -131,10 +135,33 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icon.ico">
+    <None Include="res\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="icon.png">
+    <None Include="res\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\todo_fluff.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\objects.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\image\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\effect.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\particle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\subtile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -2,22 +2,32 @@
 Is Bithelper128 necessary? Can we extend it somehow?
 
 TickTimer for GAME logic, not system logic
-- implement as ushort
+- implement as ushort?
 
-TimeStep class for system timing (timer to manage updates)
+SYSTEM
+	TimeStep
+	- Sum, Average, Minimum, Maximum
+	- TargetMin, TargetMax (ticks), Capacity
+
+PARTICLES
 
 EXTENSIONS
 
 	- Random extensions for circle, arc, quad, etc
+	- UnitSquare, Triangle, Circle, Sphere, Cube, Cone(?)(3d triangle/wedge)
+	- Random quad/barycenter triangle
+	- Point on/in unit shapes
+
+	- Vector functions!
+	- Normalize, dot, cross, length, length2, length-1
 
 COLLECTIONS
 
-Certain collections, such as Queue<T> and Stack<T> do not implement ICollection<T>. Indexing the values
-or viewing the raw array should also be possible, but it isn't. Because calling foreach is less preferable
-than polling an array directly, we should create custom classes that perform this behavior. Queue should
-be implemented as a rolling array that resizes. Stack should be trivial.
-
-	- TimeStep relies on a Queue
+	- Queue<T> and Stack<T> which implement ICollection<T> (redundant?)
+	- FlexArray<T>, which resizes automatically (how to handle ext references?)
+	- RollingArray<T> (isn't this just a list? why choose this over an array?)
+	- Grid<T>, which holds a 2D array of values
+	  - Matrix OPs on it (transpose, slice, etc)
 
 MATHEMATICS
 	Constants

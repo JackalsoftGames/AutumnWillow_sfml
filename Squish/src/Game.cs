@@ -17,6 +17,10 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
 namespace Squish
@@ -36,10 +40,13 @@ namespace Squish
         }
 
         #endregion
-
         #region fields
 
-        public RenderWindow Window;
+        public RenderWindow Window
+        {
+            get;
+            private set;
+        }
 
         #endregion
         #region methods
@@ -64,6 +71,7 @@ namespace Squish
 
                 while (Window.IsOpen)
                 {
+                    time = clock.Restart();
                     Window.DispatchEvents();
 
                     // Update
@@ -75,8 +83,6 @@ namespace Squish
                     DrawPre(time);
                     Draw(time);
                     DrawPost(time);
-
-                    time = clock.Restart();
                 }
             }
             finally
@@ -85,41 +91,17 @@ namespace Squish
             }
         }
 
-        public virtual void Initialize()
-        {
-        }
+        public virtual void Initialize() { }
+        public virtual void InitializePre() { }
+        public virtual void InitializePost() { }
 
-        public virtual void InitializePre()
-        {
-        }
+        public virtual void Update(Time time) { }
+        public virtual void UpdatePre(Time time) { }
+        public virtual void UpdatePost(Time time) { }
 
-        public virtual void InitializePost()
-        {
-        }
-
-        public virtual void Update(Time time)
-        {
-        }
-
-        public virtual void UpdatePre(Time time)
-        {
-        }
-
-        public virtual void UpdatePost(Time time)
-        {
-        }
-
-        public virtual void Draw(Time time)
-        {
-        }
-
-        public virtual void DrawPre(Time time)
-        {
-        }
-
-        public virtual void DrawPost(Time time)
-        {
-        }
+        public virtual void Draw(Time time) { }
+        public virtual void DrawPre(Time time) { }
+        public virtual void DrawPost(Time time) { }
 
         #endregion
     }

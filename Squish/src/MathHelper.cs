@@ -17,12 +17,18 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+using Squish;
+using Squish.Extensions;
+using Squish.Mathematics;
 #endregion
 
-namespace Squish.Mathematics
+namespace Squish
 {
-    public static class Constants
+    public static class MathHelper
     {
+        #region constants
+
         public const float E = 2.7182818284590452353602874713527f;
         public const float Ln10 = 2.3025850929940456840179914546844f;
         public const float Ln2 = 0.69314718055994530941723212145818f;
@@ -34,5 +40,9 @@ namespace Squish.Mathematics
         public const float PiOver2 = 1.5707963267948966192313216916398f;
         public const float PiOver4 = 0.78539816339744830961566084581988f;
         public const float TwoPi = 6.283185307179586476925286766559f;
+
+        #endregion
+
+        // min, max, clamp, lerp, etc
     }
 }
