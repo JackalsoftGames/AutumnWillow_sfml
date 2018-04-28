@@ -30,7 +30,7 @@ namespace AutumnWillow
         #region constructors
 
         public Game() :
-            base(640, 640, "Autumn Willow", Styles.Default, new ContextSettings())
+            base(480, 480, "Autumn Willow", Styles.Default, new ContextSettings())
         {
         }
 
@@ -43,7 +43,7 @@ namespace AutumnWillow
         Content content;
 
         GameState state;
-        ActorController cActor;
+        ActorController state_actorController;
 
         QuadBatch qb;
 
@@ -72,9 +72,11 @@ namespace AutumnWillow
             qb = new QuadBatch(1024);
             qb.States.Texture = new Texture("res/image/tile.png");
 
-            state = new GameState(16, 16);
-
-            cActor = new ActorController(state);
+            state = new GameState(256, 256);
+            {
+                state_actorController = new ActorController(state);
+                state.Controllers.Add(state_actorController);
+            }
         }
 
         public override void InitializePost()
@@ -82,12 +84,18 @@ namespace AutumnWillow
             // perform cleanup
             text = new Text("", new Font("res/font/old_wizard.ttf"));
             text.Font.GetTexture(text.CharacterSize).Smooth = false;
-            
-            Random r = new Random();
-            for (int i = 0; i < state.Tiles.Length; i++)
-                if (r.Next(0, 3) == 0)
-                    state.Tiles[i] = 1;
+            text.CharacterSize = 18;
 
+            Random r = new Random();
+
+            for (int y = 0; y < state.Bounds.Height; y++)
+                for (int x = 0; x < state.Bounds.Width; x++)
+                {
+                    if (r.Next(0, 3) == 0)
+                        state.Tiles[y][x] = 1;
+                }
+
+            state.Actors[0].Direction = new Delta3<Direction>(Direction.DOWN);
             state.ActorCount = 1;
         }
 
@@ -102,17 +110,24 @@ namespace AutumnWillow
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right)) input |= PlayerAction.RIGHT;
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up)) input |= PlayerAction.UP;
             if (Keyboard.IsKeyPressed(Keyboard.Key.Down)) input |= PlayerAction.DOWN;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LShift)) input |= PlayerAction.ACTION_PUSH;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LControl)) input |= PlayerAction.ACTION_ITEM;
+
+            Actor a = state.Actors[0];
+            ushort moveTime = 36;
+
+            if (input.HasFlag(PlayerAction.ACTION_PUSH))
+                moveTime = 12;
+
+            if (input.HasFlag(PlayerAction.LEFT)) state_actorController.MoveLeft(a, moveTime);
+            if (input.HasFlag(PlayerAction.RIGHT)) state_actorController.MoveRight(a, moveTime);
+            if (input.HasFlag(PlayerAction.UP)) state_actorController.MoveUp(a, moveTime);
+            if (input.HasFlag(PlayerAction.DOWN)) state_actorController.MoveDown(a, moveTime);
         }
 
         public override void Update(Time time)
         {
-            if ((input & PlayerAction.LEFT) > 0)
-                cActor.MoveLeft(ref state.Actors[0], 30);
-
-            if ((input & PlayerAction.RIGHT) > 0)
-                cActor.MoveRight(ref state.Actors[0], 30);
-
-            cActor.Update(time);
+            state.Update(time);
         }
 
         public override void UpdatePost(Time time)
@@ -131,10 +146,14 @@ namespace AutumnWillow
             Window.Clear(Color.Black);
             {
                 qb.Clear();
-                for(int y = 0; y < state.Height; y++)
-                    for (int x = 0; x < state.Width; x++)
+
+                int w = 16;
+                int h = 16;
+
+                for (int y = 0; y < h; y++)
+                    for (int x = 0; x < w; x++)
                     {
-                        if (state.Tiles[y * state.Width + x] == 0)
+                        if (state.Tiles[y][x] == 0)
                             continue;
                         qb.Add(new Vector2f(x * 32, y * 32), new IntRect(0, 0, 32, 32));
                     }
@@ -142,12 +161,47 @@ namespace AutumnWillow
                 for (int i = 0; i < state.ActorCount; i++)
                 {
                     Actor actor = state.Actors[i];
-                    qb.Add(
-                        new Vector2f(actor.Position.Current.X * 32, actor.Position.Current.Y * 32),
-                        new IntRect(288, 96, 32, 32));
+
+                    Vector2f p1, p2;
+                    float p = (actor.Timer.Other == 0)
+                        ? 0.00f
+                        : actor.Timer.Value / (float)actor.Timer.Other;
+                    {
+                        p1 = new Vector2f(
+                            actor.Position.Current.X,
+                            actor.Position.Current.Y);
+
+                        p2 = new Vector2f(
+                            actor.Position.Next.X,
+                            actor.Position.Next.Y);
+                    }
+
+                    p1 = p * (p2 - p1) + p1;
+                    p1 *= 32;
+
+                    qb.Add(p1, new IntRect(288, 96, 32, 32));
                 }
 
                 Window.Draw(qb, qb.States);
+
+                text.DisplayedString = GetActorDebug(state.Actors[0]);
+
+                RectangleShape shp = new RectangleShape();
+                shp.Size = new Vector2f(6, 6);
+                shp.OutlineColor = Color.Black;
+                shp.OutlineThickness = 2;
+
+                for (int y = 0; y < h; y++)
+                    for (int x = 0; x < w; x++)
+                    {
+                        shp.Position = new Vector2f(x * 32, y * 32);
+                        shp.FillColor = (state.Occupied[y][x])
+                            ? Color.Red
+                            : Color.Green;
+                        Window.Draw(shp);
+                    }
+
+                Window.Draw(text);
             }
             Window.Display();
         }
@@ -181,6 +235,22 @@ namespace AutumnWillow
             }
 
             return result;
+        }
+
+        public static string GetActorDebug(Actor actor)
+        {
+            return String.Format(
+                "Position\nP {0}\nC {1}\nN {2}\n" +
+                "Direction\nP {3}\nC {4}\nN {5}\n" +
+                "Movement\n{6} / {7}",
+                    actor.Position.Previous,
+                    actor.Position.Current,
+                    actor.Position.Next,
+                    actor.Direction.Previous,
+                    actor.Direction.Current,
+                    actor.Direction.Next,
+                    actor.Timer.Value,
+                    actor.Timer.Other);
         }
 
         #endregion

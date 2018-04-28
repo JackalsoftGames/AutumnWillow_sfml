@@ -24,7 +24,7 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public struct Actor
+    public sealed class Actor
     {
         public ushort Image;
         public ushort Behavior;
@@ -34,7 +34,6 @@ namespace AutumnWillow
         public Delta2<ushort> Timer;
 
         public byte State;
-
 
         public bool IsIdle
         {

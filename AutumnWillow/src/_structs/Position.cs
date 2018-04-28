@@ -37,12 +37,6 @@ namespace AutumnWillow
             Y = y;
         }
 
-        public Position(ushort value)
-        {
-            X = (byte)(value);
-            Y = (byte)(value >> 8);
-        }
-
         #endregion
         #region fields
 
@@ -52,19 +46,11 @@ namespace AutumnWillow
         #endregion
         #region properties
 
-        public ushort PackedValue
-        {
-            get
-            {
-                return (ushort)(Y * 256 + X);
-            }
-        }
-
         public Position Left
         {
             get
             {
-                return new Position((byte)((X == 0) ? 0 : X - 1), Y);
+                return new Position((byte)(X - 1), Y);
             }
         }
 
@@ -72,7 +58,7 @@ namespace AutumnWillow
         {
             get
             {
-                return new Position((byte)((X == 255) ? 255 : X + 1), Y);
+                return new Position((byte)(X + 1), Y);
             }
         }
 
@@ -80,7 +66,7 @@ namespace AutumnWillow
         {
             get
             {
-                return new Position(X, (byte)((Y == 255) ? 255 : Y + 1));
+                return new Position(X, (byte)(Y - 1));
             }
         }
 
@@ -88,7 +74,7 @@ namespace AutumnWillow
         {
             get
             {
-                return new Position(X, (byte)((Y == 0) ? 0 : Y - 1));
+                return new Position(X, (byte)(Y + 1));
             }
         }
 

@@ -95,5 +95,21 @@ namespace AutumnWillow
         }
 
         #endregion
+        #region Position.Next
+
+        public static Position Next(this Position obj, Direction value)
+        {
+            switch (value.Next())
+            {
+                case (Direction.LEFT): return obj.Left;
+                case (Direction.RIGHT): return obj.Right;
+                case (Direction.UP): return obj.Up;
+                case (Direction.DOWN): return obj.Down;
+            }
+
+            return obj;
+        }
+
+        #endregion
     }
 }

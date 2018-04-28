@@ -20,7 +20,6 @@ using SFML.Window;
 
 using Squish;
 using Squish.Extensions;
-using Squish.Mathematics;
 #endregion
 
 namespace Squish
@@ -28,7 +27,44 @@ namespace Squish
     public sealed class QuadBatch :
         Drawable
     {
+        #region types
+
+        // TODO
+
+        public enum SortMode
+        {
+            NONE = 0,
+            DEFERRED = 1,
+            IMMEDIATE = 2,
+            FRONT_TO_BACK = 3,
+            BACK_TO_FRONT = 4,
+            TEXTURE = 5
+        }
+
+        // These need to implement IComparer<> so we can sort texture arrays
+
+        private sealed class t_SortNone { }
+        private sealed class t_SortDeferred { }
+        private sealed class t_SortImmediate { }
+        private sealed class t_SortFrontToBack { }
+        private sealed class t_SortBackToFront { }
+        private sealed class t_SortTexture :
+            IComparer<Texture>
+        {
+            public int Compare(Texture value, Texture other)
+            {
+                return value.GetHashCode().CompareTo(other.GetHashCode());
+            }
+        }
+        
+        #endregion
+
         #region static fields
+
+        // TODO - check limits and include them
+
+        // private readonly static int MAX_QUADS = 16384;
+        // private readonly static int MAX_VERTICES = MAX_QUADS * 4;
 
         private static Vector2f s_Position = new Vector2f(0, 0);
         private static Transform s_Transform = Transform.Identity;
@@ -39,8 +75,11 @@ namespace Squish
 
         #region constructors
 
-        public QuadBatch(uint capacity)
+        public QuadBatch(int capacity)
         {
+            m_Textures = new Texture[capacity];
+            m_Indices = new ushort[capacity];
+
             Vertices = new Vertex[capacity * 4];
             Start = 0;
             Count = 0;
@@ -50,6 +89,9 @@ namespace Squish
 
         #endregion
         #region fields
+
+        private Texture[] m_Textures;
+        private ushort[] m_Indices;
 
         public Vertex[] Vertices;
         public uint Start;
@@ -127,7 +169,7 @@ namespace Squish
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            target.Draw(Vertices, Start, Count, PrimitiveType, states);
+            target.Draw(Vertices, Start, Count, PrimitiveType.Quads, states);
         }
 
         #endregion

@@ -4,6 +4,12 @@ Is Bithelper128 necessary? Can we extend it somehow?
 TickTimer for GAME logic, not system logic
 - implement as ushort?
 
+QUADBATCH
+	- Implement sprite sorting for deferred, texture, and FTB and BTF modes
+	- We need a vertex[], plus a texture[] and index[]. Since we have 4xN vertices, we
+	  need to track the index ordering. We sort the index array and this corresponds to
+	  textures or groups of 4 verts... I think
+
 SYSTEM
 	TimeStep
 	- Sum, Average, Minimum, Maximum

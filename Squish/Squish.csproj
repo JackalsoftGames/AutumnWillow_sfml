@@ -58,10 +58,6 @@
     <Compile Include="src\_interfaces\IUpdateable.cs" />
     <Compile Include="src\_interfaces\ITimer.cs" />
     <Compile Include="src\MathHelper.cs" />
-    <Compile Include="src\mathematics\Vector4.cs" />
-    <Compile Include="src\mathematics\Vector3.cs" />
-    <Compile Include="src\mathematics\_Vector.cs" />
-    <Compile Include="src\mathematics\Vector2.cs" />
     <Compile Include="src\_structs\Delta3.cs" />
     <Compile Include="src\_structs\Delta2.cs" />
   </ItemGroup>

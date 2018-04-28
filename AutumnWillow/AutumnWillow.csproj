@@ -37,23 +37,33 @@
     <Compile Include="src\Content.cs" />
     <Compile Include="src\Actor.cs" />
     <Compile Include="src\AutumnWillowExtensions.cs" />
+    <Compile Include="src\controllers\ActorController.cs" />
     <Compile Include="src\Game.cs" />
     <Compile Include="src\Behavior.cs" />
-    <Compile Include="src\GameState.cs" />
-    <Compile Include="src\PlayerInventory.cs" />
-    <Compile Include="src\PlayerAction.cs" />
-    <Compile Include="src\Position.cs" />
-    <Compile Include="src\Direction.cs" />
+    <Compile Include="src\controllers\GameState.cs" />
+    <Compile Include="src\_enums\PlayerInventory.cs" />
+    <Compile Include="src\_enums\PlayerAction.cs" />
+    <Compile Include="src\_structs\Position.cs" />
+    <Compile Include="src\_enums\Direction.cs" />
     <Compile Include="src\Program.cs" />
     <None Include="doc\todo.txt" />
     <None Include="res\font\old_wizard.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="res\music\bgm00.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\music\bgm01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\music\bgm02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="res\data\" />
-    <Folder Include="res\music\" />
-    <Folder Include="res\sound\" />
+    <None Include="res\README">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\csfml-audio-2.dll">
@@ -162,6 +172,71 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="res\image\tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\data\frames.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\mnemonics.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\sound\boom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\collect_dirt.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\collect_key.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\door_open.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\door_unlock.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\growl.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\magic1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\magic2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\magic3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\scream.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\select1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\select2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\select3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\step1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\step2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\tick.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\water_flow.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\water_squish.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\sound\whack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

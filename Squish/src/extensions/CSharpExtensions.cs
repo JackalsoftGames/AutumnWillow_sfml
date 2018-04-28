@@ -20,7 +20,6 @@ using SFML.Window;
 
 using Squish;
 using Squish.Extensions;
-using Squish.Mathematics;
 #endregion
 
 namespace Squish.Extensions
