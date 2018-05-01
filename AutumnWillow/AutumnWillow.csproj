@@ -35,18 +35,28 @@
     <None Include="app.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Content.cs" />
-    <Compile Include="src\Actor.cs" />
+    <Compile Include="src\gameplay\Actor.cs" />
     <Compile Include="src\AutumnWillowExtensions.cs" />
-    <Compile Include="src\controllers\ActorController.cs" />
+    <Compile Include="src\gameplay\controllers\ActorController.cs" />
+    <Compile Include="src\gameplay\controllers\AudioController.cs" />
+    <Compile Include="src\Controllers.cs" />
+    <Compile Include="src\gameplay\controllers\InventoryController.cs" />
+    <Compile Include="src\gameplay\controllers\MapController.cs" />
+    <Compile Include="src\gameplay\controllers\InputController.cs" />
     <Compile Include="src\Game.cs" />
-    <Compile Include="src\Behavior.cs" />
-    <Compile Include="src\controllers\GameState.cs" />
-    <Compile Include="src\_enums\PlayerInventory.cs" />
-    <Compile Include="src\_enums\PlayerAction.cs" />
-    <Compile Include="src\_structs\Position.cs" />
-    <Compile Include="src\_enums\Direction.cs" />
+    <Compile Include="src\gameplay\Behavior.cs" />
+    <Compile Include="src\gameplay\Tile.cs" />
+    <Compile Include="src\GameState.cs" />
+    <Compile Include="src\valuetypes\PlayerIndex.cs" />
+    <Compile Include="src\valuetypes\PlayerInventory.cs" />
+    <Compile Include="src\valuetypes\PlayerAction.cs" />
+    <Compile Include="src\valuetypes\Position.cs" />
+    <Compile Include="src\valuetypes\Direction.cs" />
     <Compile Include="src\Program.cs" />
     <None Include="doc\todo.txt" />
+    <None Include="res\font\courier_pixel.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="res\font\old_wizard.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

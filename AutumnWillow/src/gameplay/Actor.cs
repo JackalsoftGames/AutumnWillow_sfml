@@ -21,46 +21,38 @@ using SFML.Window;
 using Squish;
 using Squish.Extensions;
 #endregion
+using AutumnWillow;
+using AutumnWillow.Gameplay;
 
-namespace AutumnWillow
+namespace AutumnWillow.Gameplay
 {
     public sealed class Actor
     {
-        public ushort Image;
+        #region fields
+
+        public ushort Sprite;
         public ushort Behavior;
 
         public Delta3<Position> Position;
         public Delta3<Direction> Direction;
         public Delta2<ushort> Timer;
 
-        public byte State;
+        public ushort State;
 
-        public bool IsIdle
+        #endregion
+        #region methods
+
+        public float GetPercent()
         {
-            get
-            {
-                return
-                    Timer.Value == 0 &&
-                    Timer.Other == 0;
-            }
+            if (Timer.Value <= 0.00f)
+                return 0.00f;
+
+            if (Timer.Value >= Timer.Other)
+                return 1.00f;
+
+            return Timer.Value / (float)Timer.Other;
         }
 
-        public bool IsMoving
-        {
-            get
-            {
-                return !IsIdle;
-            }
-        }
-
-        public bool IsElapsed
-        {
-            get
-            {
-                return
-                    Timer.Value >= Timer.Other &&
-                    Timer.Other > 0;
-            }
-        }
+        #endregion
     }
 }

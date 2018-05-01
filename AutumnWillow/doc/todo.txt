@@ -1,8 +1,8 @@
-﻿Delta2/3/4 satisfy the need of a generic tuple struct class. Refactor?
-Is Bithelper128 necessary? Can we extend it somehow?
+﻿Replays? Hotkeys?
 
-TickTimer for GAME logic, not system logic
-- implement as ushort?
+CONTENT
+	- Generic class attached to Game?
+	- Add Count property to thing
 
 QUADBATCH
 	- Implement sprite sorting for deferred, texture, and FTB and BTF modes
@@ -18,7 +18,6 @@ SYSTEM
 PARTICLES
 
 EXTENSIONS
-
 	- Random extensions for circle, arc, quad, etc
 	- UnitSquare, Triangle, Circle, Sphere, Cube, Cone(?)(3d triangle/wedge)
 	- Random quad/barycenter triangle
@@ -28,7 +27,6 @@ EXTENSIONS
 	- Normalize, dot, cross, length, length2, length-1
 
 COLLECTIONS
-
 	- Queue<T> and Stack<T> which implement ICollection<T> (redundant?)
 	- FlexArray<T>, which resizes automatically (how to handle ext references?)
 	- RollingArray<T> (isn't this just a list? why choose this over an array?)
@@ -36,8 +34,6 @@ COLLECTIONS
 	  - Matrix OPs on it (transpose, slice, etc)
 
 MATHEMATICS
-	Constants
-	- Float or double? Mathhelper?
 
 	MathHelper
 	- Can this be folded into something else? Can we include consts here?

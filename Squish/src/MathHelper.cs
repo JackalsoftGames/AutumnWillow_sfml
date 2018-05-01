@@ -43,5 +43,65 @@ namespace Squish
         #endregion
 
         // min, max, clamp, lerp, etc
+
+        public static float Lerp(float value, float other, float percent)
+        {
+            return percent * (other - value) + value;
+        }
+
+        public static Vector2f Lerp(Vector2f value, Vector2f other, float percent)
+        {
+            return new Vector2f(
+                Lerp(value.X, other.X, percent),
+                Lerp(value.Y, other.Y, percent));
+        }
+
+        public static Vector3f Lerp(Vector3f value, Vector3f other, float percent)
+        {
+            return new Vector3f(
+                Lerp(value.X, other.X, percent),
+                Lerp(value.Y, other.Y, percent),
+                Lerp(value.Z, other.Z, percent));
+        }
+    }
+
+    public static class Interpolation
+    {
+        // TODO (return float)
+        // For animations and interpolation
+        public static void Linear() { }
+        public static void InSine() { }
+        public static void OutSine() { }
+        public static void InOutSine() { }
+        public static void InQuadratic() { }
+        public static void OutQuadratic() { }
+        public static void InOutQuadratic() { }
+        public static void InCubic() { }
+        public static void OutCubic() { }
+        public static void InOutCubic() { }
+        public static void InQuartic() { }
+        public static void OutQuartic() { }
+        public static void InOutQuartic() { }
+        public static void InQuintic() { }
+        public static void OutQuintic() { }
+        public static void InOutQuintic() { }
+        public static void InExponent() { }
+        public static void OutExponent() { }
+        public static void InOutExponent() { }
+        public static void InCircle() { }
+        public static void OutCircle() { }
+        public static void InOutCircle() { }
+        public static void InBack() { }
+        public static void OutBack() { }
+        public static void InOutBack() { }
+        public static void InElastic() { }
+        public static void OutElastic() { }
+        public static void InOutElastic() { }
+        public static void InBounce() { }
+        public static void OutBounce() { }
+        public static void InOutBounce() { }
+
+        // SmoothStep?
+        // Etc (from perlin)
     }
 }

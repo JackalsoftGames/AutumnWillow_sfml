@@ -22,10 +22,10 @@ using Squish;
 using Squish.Extensions;
 #endregion
 
-namespace AutumnWillow
+namespace AutumnWillow.Gameplay
 {
     public class ActorController :
-        StateController<GameState>
+        Controller<GameState>
     {
         #region constructors
 
@@ -41,9 +41,9 @@ namespace AutumnWillow
         {
             Actor actor;
 
-            for (int i = 0; i < State.ActorCount; i++)
+            for (int i = 0; i < Target.ActorCount; i++)
             {
-                actor = State.Actors[i];
+                actor = Target.Actors[i];
 
                 if (actor == null)
                     continue;
@@ -51,7 +51,7 @@ namespace AutumnWillow
                 if (actor.Timer.Value == 0)
                 {
                     if (!actor.Position.Current.Equals(actor.Position.Next))
-                        State.Occupy(actor.Position.Next.X, actor.Position.Next.Y);
+                        Target.Occupy(actor.Position.Next.X, actor.Position.Next.Y);
                 }
 
                 if (actor.Timer.Other > 0)
@@ -60,7 +60,7 @@ namespace AutumnWillow
 
                     if (actor.Timer.Value == actor.Timer.Other / 2)
                     {
-                        State.Unoccupy(actor.Position.Current.X, actor.Position.Current.Y);
+                        Target.Unoccupy(actor.Position.Current.X, actor.Position.Current.Y);
                     }
 
                     if (actor.Timer.Value >= actor.Timer.Other)
@@ -83,6 +83,11 @@ namespace AutumnWillow
 
         public bool CanCreate(int x, int y)
         {
+            if (Target.ActorCount < Target.Actors.Length)
+            {
+                if (Target.Contains(x, y))
+                    return !Target.Occupied[y][x];
+            }
             return false;
         }
 
@@ -108,38 +113,48 @@ namespace AutumnWillow
 
         public void SetOccupy(int x, int y, bool value)
         {
-            if (State.Bounds.Contains(x, y))
-                State.Occupied[y][x] = value;
+            if (Target.Bounds.Contains(x, y))
+                Target.Occupied[y][x] = value;
         }
 
         public void Occupy(int x, int y)
         {
-            if (State.Bounds.Contains(x, y))
-                State.Occupied[y][x] = true;
+            if (Target.Bounds.Contains(x, y))
+                Target.Occupied[y][x] = true;
         }
 
         public void Unoccupy(int x, int y)
         {
-            if (State.Bounds.Contains(x, y))
-                State.Occupied[y][x] = false;
+            if (Target.Bounds.Contains(x, y))
+                Target.Occupied[y][x] = false;
         }
 
         public bool IsOccupied(int x, int y)
         {
-            if(State.Bounds.Contains(x,y))
-                return State.Occupied[y][x];
+            if (Target.Bounds.Contains(x, y))
+                return Target.Occupied[y][x];
             return false;
         }
 
         #endregion
         #region methods :: movement
 
+        public bool IsMoving(Actor actor)
+        {
+            return (actor.Timer.Value > 0);
+        }
+
+        public bool IsIdle(Actor actor)
+        {
+            return (actor.Timer.Other == 0);
+        }
+
         public void Move(Actor actor, Position position, Direction direction, ushort time)
         {
             // Only begin movement if it is idling. This guarantees
             // that tile occupancy is updated correctly.
             {
-                if (actor.IsMoving)
+                if (!IsIdle(actor))
                     return;
             }
 
@@ -149,14 +164,14 @@ namespace AutumnWillow
             {
                 if (!actor.Position.Current.Equals(position))
                 {
-                    if (State.IsOccupied(position.X, position.Y))
+                    if (Target.IsOccupied(position.X, position.Y))
                         return;
                 }
             }
 
             // Do a bounds check
             {
-                if (!State.Contains(position.X, position.Y))
+                if (!Target.Contains(position.X, position.Y))
                     return;
             }
 

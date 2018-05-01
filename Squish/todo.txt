@@ -1,0 +1,26 @@
+﻿TODO
+- Interpolation functions
+- QuadBatch sorting
+- Create a VertexBatch => QuadBatch
+- Vector functions (dot, cross, reflect, etc)
+- Random functions (on/in unit circle, etc)
+
+FIXME
+BUG
+NOBUG
+REQ
+RFQ
+IDEA
+???
+!!!
+HACK
+PORT
+CAVEAT
+NOTE
+FAQ
+GLOSS
+SEE
+TODOC
+CRED
+STAT
+RVD

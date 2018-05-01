@@ -24,8 +24,8 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    // TODO: ICollection?
-    public sealed class AssetManager<T>
+    public sealed class AssetManager<T> :
+        IDisposable
     {
         #region constructors
 
@@ -33,7 +33,7 @@ namespace Squish
         {
             ByIndex = new Dictionary<int, T>();
             ByName = new Dictionary<string, T>();
-            ByInstance = new Dictionary<T, Asset<T>>();
+            ByValue = new Dictionary<T, Asset<T>>();
         }
 
         #endregion
@@ -59,38 +59,72 @@ namespace Squish
         {
             get
             {
-                return ByInstance[instance];
+                return ByValue[instance];
             }
         }
 
         #endregion
-        #region fields
+        #region properties
 
-        public IDictionary<int, T> ByIndex;
-        public IDictionary<string, T> ByName;
-        public IDictionary<T, Asset<T>> ByInstance;
+        public IDictionary<int, T> ByIndex
+        {
+            get;
+            private set;
+        }
+
+        public IDictionary<string, T> ByName
+        {
+            get;
+            private set;
+        }
+
+        public IDictionary<T, Asset<T>> ByValue
+        {
+            get;
+            private set;
+        }
 
         #endregion
         #region methods
 
-        public void Load(Asset<T> asset)
+        public void Dispose()
         {
-            if (asset == null)
-                return;
+            foreach (var ITEM in ByValue.Values)
+            {
+                if (ITEM != null)
+                    ITEM.Dispose();
+            }
 
-            ByIndex.Add(asset.Index, asset.Instance);
-            ByName.Add(asset.Name, asset.Instance);
-            ByInstance.Add(asset.Instance, asset);
+            ByIndex.Clear();
+            ByName.Clear();
+            ByValue.Clear();
         }
 
-        public void Unload(Asset<T> asset)
+        public void Add(Asset<T> asset)
         {
             if (asset == null)
                 return;
 
-            if (ByIndex.ContainsKey(asset.Index)) ByIndex.Remove(asset.Index);
-            if (ByName.ContainsKey(asset.Name)) ByName.Remove(asset.Name);
-            if (ByInstance.ContainsKey(asset.Instance)) ByInstance.Remove(asset.Instance);
+            ByIndex.Add(asset.Index, asset.Value);
+            ByName.Add(asset.Name, asset.Value);
+            ByValue.Add(asset.Value, asset);
+        }
+
+        public void Remove(Asset<T> asset)
+        {
+            if (asset == null)
+                return;
+
+            ByIndex.Remove(asset.Index);
+            ByName.Remove(asset.Name);
+            ByValue.Remove(asset.Value);
+        }
+
+        public void Clear()
+        {
+            ByIndex.Clear();
+            ByName.Clear();
+            ByValue.Clear();
         }
 
         #endregion

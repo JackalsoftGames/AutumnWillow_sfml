@@ -24,42 +24,32 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public sealed class Asset<T> :
-        IDisposable
+    public abstract class Controller<T> :
+        IUpdateable
     {
-        #region static fields
-
-        private static readonly bool s_IsDisposable =
-            typeof(IDisposable).IsAssignableFrom(typeof(T));
-
-        #endregion
-
         #region constructors
 
-        public Asset(int index, string name, T value)
+        public Controller(T target)
         {
-            Index = index;
-            Name = name;
-            Value = value;
+            if (target == null)
+                throw new ArgumentNullException("target");
+            Target = target;
         }
 
         #endregion
-        #region fields
-
-        public int Index;
-        public string Name;
-        public T Value;
+        #region properties
+        
+        public T Target
+        {
+            get;
+            private set;
+        }
 
         #endregion
         #region methods
 
-        public void Dispose()
+        public virtual void Update(Time time)
         {
-            if (Value != null)
-            {
-                if (s_IsDisposable)
-                    ((IDisposable)Value).Dispose();
-            }
         }
 
         #endregion

@@ -29,25 +29,35 @@ namespace AutumnWillow
     {
         #region constructors
 
-        public Game() :
-            base(480, 480, "Autumn Willow", Styles.Default, new ContextSettings())
+        public Game()
         {
+            Window = new RenderWindow(
+                new VideoMode(480, 480),
+                "Autumn Willow",
+                Styles.Default,
+                new ContextSettings());
+
+            Content = new Content(this);
+            State = new GameState(10, 10);
+            Controllers = new Controllers(State);
         }
 
         #endregion
+        #region fields
 
-        // fields
+        // Mostly debug stuff here
         Text text;
-        PlayerAction input;
-
-        Content content;
-
-        GameState state;
-        ActorController state_actorController;
-
         QuadBatch qb;
 
-        #region initialize
+        #endregion
+        #region properties
+
+        public Content Content { get; private set; }
+        public GameState State { get; private set; }
+        public Controllers Controllers { get; private set; }
+
+        #endregion
+        #region methods :: initialize
 
         public override void InitializePre()
         {
@@ -57,77 +67,104 @@ namespace AutumnWillow
 
         public override void Initialize()
         {
-            content = new Content();
+            #region load content
+
+            foreach (var ITEM in System.IO.Directory.GetFiles(
+                "res/image/", "*.png", System.IO.SearchOption.AllDirectories))
             {
-                foreach (var ITEM in System.IO.Directory.GetFiles(
-                    "res/image/", "*.png", System.IO.SearchOption.AllDirectories))
-                {
-                    content.Textures.Load(new Asset<Texture>(
-                        content.Textures.ByIndex.Count,
-                        System.IO.Path.GetFileNameWithoutExtension(ITEM),
-                        new Texture(ITEM)));
-                }
+                Content.Textures.Add(new Asset<Texture>(
+                    Content.Textures.ByIndex.Count,
+                    System.IO.Path.GetFileNameWithoutExtension(ITEM),
+                    new Texture(ITEM)));
             }
+
+            foreach (var ITEM in System.IO.Directory.GetFiles(
+                "res/font/", "*.ttf", System.IO.SearchOption.AllDirectories))
+            {
+                Content.Fonts.Add(new Asset<Font>(
+                    Content.Fonts.ByIndex.Count,
+                    System.IO.Path.GetFileNameWithoutExtension(ITEM),
+                    new Font(ITEM)));
+            }
+
+            foreach (var ITEM in System.IO.Directory.GetFiles(
+                "res/music/", "*.ogg", System.IO.SearchOption.AllDirectories))
+            {
+                Content.Music.Add(new Asset<Music>(
+                    Content.Music.ByIndex.Count,
+                    System.IO.Path.GetFileNameWithoutExtension(ITEM),
+                    new Music(ITEM)));
+            }
+
+            foreach (var ITEM in System.IO.Directory.GetFiles(
+                "res/sound/", "*.wav", System.IO.SearchOption.AllDirectories))
+            {
+                Content.Sounds.Add(new Asset<SoundBuffer>(
+                    Content.Sounds.ByIndex.Count,
+                    System.IO.Path.GetFileNameWithoutExtension(ITEM),
+                    new SoundBuffer(ITEM)));
+            }
+
+            #endregion
+
+            Window.SetFramerateLimit(60);
+            Window.Closed += (sender, e) =>
+            {
+                Window.Close();
+                IsRunning = false;
+            };
 
             qb = new QuadBatch(1024);
-            qb.States.Texture = new Texture("res/image/tile.png");
-
-            state = new GameState(256, 256);
-            {
-                state_actorController = new ActorController(state);
-                state.Controllers.Add(state_actorController);
-            }
+            qb.States.Texture = Content.Textures["tile"];
         }
 
         public override void InitializePost()
         {
             // perform cleanup
-            text = new Text("", new Font("res/font/old_wizard.ttf"));
+            text = new Text("", Content.Fonts[0]);
             text.Font.GetTexture(text.CharacterSize).Smooth = false;
             text.CharacterSize = 18;
 
             Random r = new Random();
 
-            for (int y = 0; y < state.Bounds.Height; y++)
-                for (int x = 0; x < state.Bounds.Width; x++)
+            for (int y = 0; y < State.Bounds.Height; y++)
+                for (int x = 0; x < State.Bounds.Width; x++)
                 {
                     if (r.Next(0, 3) == 0)
-                        state.Tiles[y][x] = 1;
+                        State.Tiles[y][x] = 1;
                 }
 
-            state.Actors[0].Direction = new Delta3<Direction>(Direction.DOWN);
-            state.ActorCount = 1;
+            State.Actors[0].Direction = new Delta3<Direction>(Direction.DOWN);
+            State.ActorCount = 1;
+
+            Music m = Content.Music[0];
+            m.Play();
+            m.RelativeToListener = true;
         }
 
         #endregion
-        #region update
+        #region methods :: update
 
         public override void UpdatePre(Time time)
         {
-            input = PlayerAction.NONE;
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left)) input |= PlayerAction.LEFT;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right)) input |= PlayerAction.RIGHT;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up)) input |= PlayerAction.UP;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down)) input |= PlayerAction.DOWN;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.LShift)) input |= PlayerAction.ACTION_PUSH;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.LControl)) input |= PlayerAction.ACTION_ITEM;
-
-            Actor a = state.Actors[0];
-            ushort moveTime = 36;
-
-            if (input.HasFlag(PlayerAction.ACTION_PUSH))
-                moveTime = 12;
-
-            if (input.HasFlag(PlayerAction.LEFT)) state_actorController.MoveLeft(a, moveTime);
-            if (input.HasFlag(PlayerAction.RIGHT)) state_actorController.MoveRight(a, moveTime);
-            if (input.HasFlag(PlayerAction.UP)) state_actorController.MoveUp(a, moveTime);
-            if (input.HasFlag(PlayerAction.DOWN)) state_actorController.MoveDown(a, moveTime);
         }
 
         public override void Update(Time time)
         {
-            state.Update(time);
+            Controllers.Update(time);
+
+            // Debug
+            PlayerAction input = State.Input[0];
+
+            var actor = State.Actors[0];
+            ushort moveTime = (input.HasFlag(PlayerAction.ACTION_PUSH))
+                ? (ushort)36
+                : (ushort)12;
+
+            if (input.HasFlag(PlayerAction.LEFT)) Controllers.Actors.MoveLeft(actor, moveTime);
+            if (input.HasFlag(PlayerAction.RIGHT)) Controllers.Actors.MoveRight(actor, moveTime);
+            if (input.HasFlag(PlayerAction.UP)) Controllers.Actors.MoveUp(actor, moveTime);
+            if (input.HasFlag(PlayerAction.DOWN)) Controllers.Actors.MoveDown(actor, moveTime);
         }
 
         public override void UpdatePost(Time time)
@@ -135,7 +172,7 @@ namespace AutumnWillow
         }
 
         #endregion
-        #region draw
+        #region methods :: draw
 
         public override void DrawPre(Time time)
         {
@@ -147,25 +184,26 @@ namespace AutumnWillow
             {
                 qb.Clear();
 
-                int w = 16;
-                int h = 16;
+                int w = State.Bounds.Width;
+                int h = State.Bounds.Height;
+
+                if (w > 16) w = 16;
+                if (h > 16) h = 16;
 
                 for (int y = 0; y < h; y++)
                     for (int x = 0; x < w; x++)
                     {
-                        if (state.Tiles[y][x] == 0)
+                        if (State.Tiles[y][x] == 0)
                             continue;
                         qb.Add(new Vector2f(x * 32, y * 32), new IntRect(0, 0, 32, 32));
                     }
 
-                for (int i = 0; i < state.ActorCount; i++)
+                for (int i = 0; i < State.ActorCount; i++)
                 {
-                    Actor actor = state.Actors[i];
+                    var actor = State.Actors[i];
 
                     Vector2f p1, p2;
-                    float p = (actor.Timer.Other == 0)
-                        ? 0.00f
-                        : actor.Timer.Value / (float)actor.Timer.Other;
+                    float p = actor.GetPercent();
                     {
                         p1 = new Vector2f(
                             actor.Position.Current.X,
@@ -177,28 +215,30 @@ namespace AutumnWillow
                     }
 
                     p1 = p * (p2 - p1) + p1;
-                    p1 *= 32;
 
-                    qb.Add(p1, new IntRect(288, 96, 32, 32));
+                    qb.Add(p1 * 32, new IntRect(192, 192, 32, 32), Color.Blue);
                 }
-
                 Window.Draw(qb, qb.States);
 
-                text.DisplayedString = GetActorDebug(state.Actors[0]);
+                text.Position = new Vector2f(384-32, 0);
+                text.DisplayedString = GetActorDebug(State.Actors[0]);
 
                 RectangleShape shp = new RectangleShape();
                 shp.Size = new Vector2f(6, 6);
                 shp.OutlineColor = Color.Black;
                 shp.OutlineThickness = 2;
 
+                // FIXME (slow)
+                // Draw calls are slow, needs batching
+
                 for (int y = 0; y < h; y++)
                     for (int x = 0; x < w; x++)
                     {
                         shp.Position = new Vector2f(x * 32, y * 32);
-                        shp.FillColor = (state.Occupied[y][x])
+                        shp.FillColor = (State.Occupied[y][x])
                             ? Color.Red
                             : Color.Green;
-                        Window.Draw(shp);
+                        //Window.Draw(shp);
                     }
 
                 Window.Draw(text);
@@ -237,12 +277,12 @@ namespace AutumnWillow
             return result;
         }
 
-        public static string GetActorDebug(Actor actor)
+        public static string GetActorDebug(AutumnWillow.Gameplay.Actor actor)
         {
             return String.Format(
-                "Position\nP {0}\nC {1}\nN {2}\n" +
-                "Direction\nP {3}\nC {4}\nN {5}\n" +
-                "Movement\n{6} / {7}",
+                "Position\nP {0}\nC {1}\nN {2}\n\n" +
+                "Direction\nP {3}\nC {4}\nN {5}\n\n" +
+                "Movement\n{6} / {7}\n\n",
                     actor.Position.Previous,
                     actor.Position.Current,
                     actor.Position.Next,

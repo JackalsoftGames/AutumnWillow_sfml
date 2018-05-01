@@ -24,27 +24,29 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public class Game :
+    public abstract class Game :
         IUpdateable
     {
         #region constructors
 
-        public Game(uint width, uint height, string title, Styles style, ContextSettings settings)
+        public Game()
         {
-            Window = new RenderWindow(
-                new VideoMode(width, height),
-                title,
-                style,
-                settings);
+            IsRunning = true;
         }
 
         #endregion
-        #region fields
+        #region properties
 
         public RenderWindow Window
         {
             get;
-            private set;
+            protected set;
+        }
+
+        public bool IsRunning
+        {
+            get;
+            protected set;
         }
 
         #endregion
@@ -52,12 +54,6 @@ namespace Squish
 
         public void Main()
         {
-            Window.SetFramerateLimit(60); // FIXME (should be a default value or toggleable / component level)
-            Window.Closed += (sender, e) =>
-            {
-                Window.Close();
-            };
-
             try
             {
                 // Initialize
@@ -68,10 +64,12 @@ namespace Squish
                 Clock clock = new Clock();
                 Time time = Time.Zero;
 
-                while (Window.IsOpen)
+                while (IsRunning)
                 {
                     time = clock.Restart();
-                    Window.DispatchEvents();
+
+                    if (Window != null)
+                        Window.DispatchEvents();
 
                     // Update
                     UpdatePre(time);
@@ -86,7 +84,8 @@ namespace Squish
             }
             finally
             {
-                Window.Dispose();
+                if (Window != null)
+                    Window.Dispose();
             }
         }
 

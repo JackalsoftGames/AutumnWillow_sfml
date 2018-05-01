@@ -24,34 +24,14 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public class StateController<TState> :
-        IUpdateable
+    // TODO:
+    // - Allows objects to attach to others
+    // - Eg, a GameComponent or a GameStateComponent
+    // - Need universal naming convention, eg GetTarget() versus a property
+    // - ComponentBase() which implements a private readonly property?
+
+    public interface IComponentOf<T>
     {
-        #region constructors
-
-        public StateController(TState state)
-        {
-            if (state == null)
-                throw new ArgumentNullException("state");
-            State = state;
-        }
-
-        #endregion
-        #region properties
-
-        public TState State
-        {
-            get;
-            private set;
-        }
-
-        #endregion
-        #region methods
-
-        public virtual void Update(Time time)
-        {
-        }
-
-        #endregion
+        // T GetOwner();
     }
 }

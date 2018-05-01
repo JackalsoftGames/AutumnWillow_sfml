@@ -21,14 +21,16 @@ using SFML.Window;
 using Squish;
 using Squish.Extensions;
 #endregion
+using AutumnWillow;
+using AutumnWillow.Gameplay;
 
 namespace AutumnWillow
 {
-    // TODO:
+    // TODO / ???
     // Make IUpdateable, and have it update any game controllers attached to it
+    // Allow controllers to have an update priority/order
 
-    public class GameState :
-        IUpdateable
+    public class GameState
     {
         public GameState(int width, int height)
         {
@@ -52,6 +54,9 @@ namespace AutumnWillow
                 Tiles[i] = new int[Bounds.Width];
                 Occupied[i] = new bool[Bounds.Width];
             }
+
+            Input = new PlayerAction[4];
+            Inventory = new PlayerInventory[4];
         }
 
         public IntRect Bounds;
@@ -62,6 +67,8 @@ namespace AutumnWillow
         public int[][] Tiles;
         public bool[][] Occupied;
 
+        public PlayerAction[] Input;
+        public PlayerInventory[] Inventory;
 
         public bool Contains(int x, int y)
         {
@@ -85,15 +92,6 @@ namespace AutumnWillow
         {
             if (Bounds.Contains(x, y))
                 Occupied[y][x] = false;
-        }
-
-        public ICollection<StateController<GameState>> Controllers = new 
-            List<StateController<GameState>>();
-
-        public void Update(Time time)
-        {
-            foreach (var ITEM in Controllers)
-                ITEM.Update(time);
         }
     }
 }
