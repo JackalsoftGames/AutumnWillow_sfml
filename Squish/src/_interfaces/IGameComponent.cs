@@ -24,14 +24,9 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public enum SortMode :
-        byte
+    public interface IGameComponent<TGame>
+        where TGame : GameBase
     {
-        NONE = 0,
-        IMMEDIATE = 1,
-        DEFERRED = 2,
-        FRONT_TO_BACK = 3,
-        BACK_TO_FRONT = 4,
-        TEXTURE = 5
+        TGame Game { get; }
     }
 }

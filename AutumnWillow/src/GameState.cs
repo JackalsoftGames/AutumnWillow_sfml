@@ -21,18 +21,16 @@ using SFML.Window;
 using Squish;
 using Squish.Extensions;
 #endregion
-using AutumnWillow;
-using AutumnWillow.Gameplay;
 
 namespace AutumnWillow
 {
-    // TODO / ???
-    // Make IUpdateable, and have it update any game controllers attached to it
-    // Allow controllers to have an update priority/order
-
-    public class GameState
+    public sealed class GameState :
+        GameComponentBase<Game>
     {
-        public GameState(int width, int height)
+        #region constructors
+
+        public GameState(Game game, int width, int height) :
+            base(game)
         {
             if (width < 0) width = 0;
             if (height < 0) height = 0;
@@ -59,6 +57,9 @@ namespace AutumnWillow
             Inventory = new PlayerInventory[4];
         }
 
+        #endregion
+        #region fields
+
         public IntRect Bounds;
 
         public Actor[] Actors;
@@ -70,28 +71,72 @@ namespace AutumnWillow
         public PlayerAction[] Input;
         public PlayerInventory[] Inventory;
 
-        public bool Contains(int x, int y)
+        public ushort TimeLimitMaximum;
+        public ushort TimeLimit;
+        public Delta2<ushort> TimeLimitDelay;
+
+        // TODO:
+        // queue for remove, bump, push signals, explosion, etc
+
+        #endregion
+        #region methods
+
+        public override void Update(Time time)
+        {
+            Actor actor;
+
+            for (int i = 0; i < ActorCount; i++)
+            {
+                actor = Actors[i];
+                if (actor == null)
+                    continue;
+
+                // Check if actor is in the middle of something
+                if (actor.Timer.Other == 0)
+                    continue;
+
+
+                // Actor is in first frame of movement, validate it
+                if (actor.Timer.Value == 0)
+                {
+                }
+
+                actor.Timer.Value++;
+
+                // Actor is at the halfway point of movement
+                if (actor.Timer.Value == actor.Timer.Other / 2)
+                {
+                }
+
+                // Actor has finished movement
+                if (actor.Timer.Value >= actor.Timer.Other)
+                {
+                }
+            }
+        }
+
+        #endregion
+
+        #region methods :: occupancy
+
+        public bool TileExists(int x, int y)
         {
             return Bounds.Contains(x, y);
         }
 
+        public void Occupy(int x, int y, bool value)
+        {
+            if (TileExists(x, y))
+                Occupied[y][x] = value;
+        }
+
         public bool IsOccupied(int x, int y)
         {
-            if (Bounds.Contains(x, y))
+            if (TileExists(x, y))
                 return Occupied[y][x];
             return false;
         }
 
-        public void Occupy(int x, int y)
-        {
-            if (Bounds.Contains(x, y))
-                Occupied[y][x] = true;
-        }
-
-        public void Unoccupy(int x, int y)
-        {
-            if (Bounds.Contains(x, y))
-                Occupied[y][x] = false;
-        }
+        #endregion
     }
 }

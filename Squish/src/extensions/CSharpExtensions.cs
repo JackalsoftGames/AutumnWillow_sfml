@@ -24,6 +24,10 @@ using Squish.Extensions;
 
 namespace Squish.Extensions
 {
+    // TODO:
+    // - GetIndex for T[] extension
+    // - Use that trick where I do (int)n and n%1
+
     public static class CSharpExtensions
     {
         #region Random.NextFloat

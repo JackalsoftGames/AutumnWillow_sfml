@@ -1,3 +1,30 @@
-﻿Light beams emit particles in some fashion
+﻿Light beams emit particles
 
-Themes: art/music packs that can be specified by the level or calendar
+HOLIDAY THEMES:
+	- Make the game more lively!
+	- Options to enable/disable Holiday and Seasonal themes
+
+	SPRING
+	SUMMER
+	AUTUMN
+	WINTER
+
+	EASTER
+	HALLOWEEN
+	XMAS
+	- Safes are presents
+	- Seekers are greenish, and lights are RGB xmas colors
+
+	RETRO (?)
+
+GOLD CARDS:
+	- Used as a form of meta-progression, with 5 gold cards per level
+	- Award a gold card for each:
+		- Completing level within the hard mode time limit
+		- Completing level by finding the hard mode exit
+		- Completing level by meeting the hard mode gem quota
+	- If all three tasks are met in one attempt, you get two bonus cards
+	- Level frame appears bronze, silver, or gold, depending on how many cards were earned
+		- Bronze: 1, Silver: 3, Gold: 5
+		- Frame appears shiny if you hold the high score
+	- Can be used for bonus unlocks, eg level groups, themes, secret levels, etc

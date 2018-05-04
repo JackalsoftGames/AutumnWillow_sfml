@@ -34,19 +34,17 @@
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Content.cs" />
+    <Compile Include="src\controllers\GameControllerBase.cs" />
+    <Compile Include="src\controllers\StatusController.cs" />
+    <Compile Include="src\GameContent.cs" />
+    <Compile Include="src\GameControllers.cs" />
+    <Compile Include="src\GameState.cs" />
     <Compile Include="src\gameplay\Actor.cs" />
-    <Compile Include="src\AutumnWillowExtensions.cs" />
-    <Compile Include="src\gameplay\controllers\ActorController.cs" />
-    <Compile Include="src\gameplay\controllers\AudioController.cs" />
-    <Compile Include="src\Controllers.cs" />
-    <Compile Include="src\gameplay\controllers\InventoryController.cs" />
-    <Compile Include="src\gameplay\controllers\MapController.cs" />
-    <Compile Include="src\gameplay\controllers\InputController.cs" />
+    <Compile Include="src\controllers\MapController.cs" />
     <Compile Include="src\Game.cs" />
     <Compile Include="src\gameplay\Behavior.cs" />
+    <Compile Include="src\gameplay\BehaviorEventArgs.cs" />
     <Compile Include="src\gameplay\Tile.cs" />
-    <Compile Include="src\GameState.cs" />
     <Compile Include="src\valuetypes\PlayerIndex.cs" />
     <Compile Include="src\valuetypes\PlayerInventory.cs" />
     <Compile Include="src\valuetypes\PlayerAction.cs" />
@@ -169,16 +167,7 @@
     <None Include="doc\objects.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\image\background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="res\image\effect.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="res\image\particle.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="res\image\subtile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="res\image\tile.png">
@@ -247,6 +236,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="res\sound\whack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\image\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\particle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\image\subtile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

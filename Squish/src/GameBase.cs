@@ -24,12 +24,11 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public abstract class Game :
-        IUpdateable
+    public abstract class GameBase
     {
         #region constructors
 
-        public Game()
+        public GameBase()
         {
             IsRunning = true;
         }
@@ -89,17 +88,17 @@ namespace Squish
             }
         }
 
-        public virtual void Initialize() { }
-        public virtual void InitializePre() { }
-        public virtual void InitializePost() { }
+        protected virtual void Initialize() { }
+        protected virtual void InitializePre() { }
+        protected virtual void InitializePost() { }
 
-        public virtual void Update(Time time) { }
-        public virtual void UpdatePre(Time time) { }
-        public virtual void UpdatePost(Time time) { }
+        protected virtual void Update(Time time) { }
+        protected virtual void UpdatePre(Time time) { }
+        protected virtual void UpdatePost(Time time) { }
 
-        public virtual void Draw(Time time) { }
-        public virtual void DrawPre(Time time) { }
-        public virtual void DrawPost(Time time) { }
+        protected virtual void Draw(Time time) { }
+        protected virtual void DrawPre(Time time) { }
+        protected virtual void DrawPost(Time time) { }
 
         #endregion
     }

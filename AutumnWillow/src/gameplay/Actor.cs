@@ -21,12 +21,10 @@ using SFML.Window;
 using Squish;
 using Squish.Extensions;
 #endregion
-using AutumnWillow;
-using AutumnWillow.Gameplay;
 
-namespace AutumnWillow.Gameplay
+namespace AutumnWillow
 {
-    public sealed class Actor
+    public class Actor
     {
         #region fields
 
@@ -38,20 +36,6 @@ namespace AutumnWillow.Gameplay
         public Delta2<ushort> Timer;
 
         public ushort State;
-
-        #endregion
-        #region methods
-
-        public float GetPercent()
-        {
-            if (Timer.Value <= 0.00f)
-                return 0.00f;
-
-            if (Timer.Value >= Timer.Other)
-                return 1.00f;
-
-            return Timer.Value / (float)Timer.Other;
-        }
 
         #endregion
     }

@@ -27,6 +27,21 @@ namespace Squish
     public sealed class QuadBatch :
         Drawable
     {
+        #region types
+
+        public enum SortMode :
+            byte
+        {
+            NONE = 0,
+            IMMEDIATE = 1,
+            DEFERRED = 2,
+            FRONT_TO_BACK = 3,
+            BACK_TO_FRONT = 4,
+            TEXTURE = 5
+        }
+
+        #endregion
+
         #region static fields
 
         private static Vector2f s_Position = new Vector2f(0, 0);
@@ -58,6 +73,36 @@ namespace Squish
 
         #endregion
         #region methods
+        
+        public void Add(Sprite sprite)
+        {
+            Vector2f position = sprite.Position;
+            Transform transform = sprite.Transform;
+            IntRect textureRect = sprite.TextureRect;
+            Color color = sprite.Color;
+
+            Vertices[Count + 0] = new Vertex(
+                position + transform.TransformPoint(0, 0),
+                color,
+                new Vector2f(textureRect.Left, textureRect.Top));
+
+            Vertices[Count + 1] = new Vertex(
+                position + transform.TransformPoint(0, textureRect.Height),
+                color,
+                new Vector2f(textureRect.Left, textureRect.Top + textureRect.Height));
+
+            Vertices[Count + 2] = new Vertex(
+                position + transform.TransformPoint(textureRect.Width, textureRect.Height),
+                color,
+                new Vector2f(textureRect.Left + textureRect.Width, textureRect.Top + textureRect.Height));
+
+            Vertices[Count + 3] = new Vertex(
+                position + transform.TransformPoint(textureRect.Width, 0),
+                color,
+                new Vector2f(textureRect.Left + textureRect.Width, textureRect.Top));
+
+            Count += 4;
+        }
 
         public void Add(ref Vector2f position, ref Transform transform, ref IntRect textureRect, ref Color color)
         {

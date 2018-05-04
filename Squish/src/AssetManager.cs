@@ -24,8 +24,7 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public sealed class AssetManager<T> :
-        IDisposable
+    public sealed class AssetManager<T>
     {
         #region constructors
 
@@ -86,19 +85,6 @@ namespace Squish
 
         #endregion
         #region methods
-
-        public void Dispose()
-        {
-            foreach (var ITEM in ByValue.Values)
-            {
-                if (ITEM != null)
-                    ITEM.Dispose();
-            }
-
-            ByIndex.Clear();
-            ByName.Clear();
-            ByValue.Clear();
-        }
 
         public void Add(Asset<T> asset)
         {

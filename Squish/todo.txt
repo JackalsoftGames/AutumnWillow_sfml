@@ -2,8 +2,9 @@
 - Interpolation functions
 - QuadBatch sorting
 - Create a VertexBatch => QuadBatch
-- Vector functions (dot, cross, reflect, etc)
 - Random functions (on/in unit circle, etc)
+- INode<T>
+- Collection<T>: hash, queue, stack, flexarray, rollingarray, grid
 
 FIXME
 BUG

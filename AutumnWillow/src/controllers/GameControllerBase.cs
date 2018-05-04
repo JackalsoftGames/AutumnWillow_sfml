@@ -22,27 +22,33 @@ using Squish;
 using Squish.Extensions;
 #endregion
 
-namespace AutumnWillow.Gameplay
+namespace AutumnWillow
 {
-    // TODO:
-    // - Track SFX and music instances currently playing 
-    // - Pause them if loses focus (if global game option is set)
-    // - Volume controls
-
-    public class AudioController :
-        Controller<GameState>
+    public abstract class GameControllerBase :
+        IUpdateable
     {
         #region constructors
 
-        public AudioController(GameState state) :
-            base(state)
+        public GameControllerBase(GameState state)
         {
+            if (state == null)
+                throw new ArgumentNullException("state");
+            State = state;
+        }
+        
+        #endregion
+        #region properties
+
+        public GameState State
+        {
+            get;
+            private set;
         }
 
         #endregion
         #region methods
 
-        public override void Update(Time time)
+        public virtual void Update(Time time)
         {
         }
 

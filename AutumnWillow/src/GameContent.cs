@@ -24,36 +24,40 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    // TODO:
-    // - Limit of 256 sound/music instances (252 sounds / 4 music?)
-    // - Store as arrays
-    // - Manage them so they pause when app gain/loses focus (if settings allow)
-
-    public sealed class Content
+    public sealed class GameContent :
+        GameComponentBase<Game>
     {
         #region constructors
 
-        public Content(Game game)
+        public GameContent(Game game) :
+            base(game)
         {
-            if (game == null)
-                throw new ArgumentNullException("game");
-            Game = game;
-
             Textures = new AssetManager<Texture>();
             Fonts = new AssetManager<Font>();
             Sounds = new AssetManager<SoundBuffer>();
             Music = new AssetManager<Music>();
+
+            Frames = new AssetManager<SpriteSheet>();
+            Behaviors = new AssetManager<Behavior>();
         }
 
         #endregion
         #region properties
 
-        public Game Game { get; private set; }
-
         public AssetManager<Texture> Textures { get; private set; }
         public AssetManager<Font> Fonts { get; private set; }
         public AssetManager<SoundBuffer> Sounds { get; private set; }
         public AssetManager<Music> Music { get; private set; }
+
+        public AssetManager<SpriteSheet> Frames { get; private set; }
+        public AssetManager<Behavior> Behaviors { get; private set; }
+
+        #endregion
+        #region methods
+
+        public override void Update(Time time)
+        {
+        }
 
         #endregion
     }

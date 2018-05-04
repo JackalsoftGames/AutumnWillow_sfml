@@ -24,15 +24,23 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public struct Tile
+    public sealed class GameControllers :
+        GameComponentBase<Game>
     {
-        #region fields
+        #region constructors
 
-        public ushort Sprite;
-        public ushort Behavior;
-        
-        public Direction Direction;
-        public ushort State;
+        public GameControllers(Game game) :
+            base(game)
+        {
+            Map = new MapController(game.State);
+            Status = new StatusController(game.State);
+        }
+
+        #endregion
+        #region properties
+
+        public MapController Map { get; private set; }
+        public StatusController Status { get; private set; }
 
         #endregion
     }

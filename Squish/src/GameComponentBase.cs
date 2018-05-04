@@ -24,22 +24,24 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public abstract class Controller<T> :
+    public abstract class GameComponentBase<TGame> :
+        IGameComponent<TGame>,
         IUpdateable
+        where TGame : GameBase
     {
         #region constructors
 
-        public Controller(T target)
+        public GameComponentBase(TGame game)
         {
-            if (target == null)
-                throw new ArgumentNullException("target");
-            Target = target;
+            if (game == null)
+                throw new ArgumentNullException("game");
+            Game = game;
         }
 
         #endregion
         #region properties
-        
-        public T Target
+
+        public TGame Game
         {
             get;
             private set;

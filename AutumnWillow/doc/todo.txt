@@ -1,5 +1,14 @@
 ﻿Replays? Hotkeys?
 
+OPTIONS
+	- Master volume
+	- Music volume
+	- SFX volume
+	- Menu volume
+	- Toggle for game pausing when loses focus
+	- Toggle for audio pausing when loses focus
+	- Toggle fade in/out rather than muting (bonus: use Interpolation curve funcs)
+
 CONTENT
 	- Generic class attached to Game?
 	- Add Count property to thing

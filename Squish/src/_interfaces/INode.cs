@@ -24,14 +24,8 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    // TODO:
-    // - Allows objects to attach to others
-    // - Eg, a GameComponent or a GameStateComponent
-    // - Need universal naming convention, eg GetTarget() versus a property
-    // - ComponentBase() which implements a private readonly property?
-
-    public interface IComponentOf<T>
+    public interface INode<T>
+        where T: INode<T>
     {
-        // T GetOwner();
     }
 }
