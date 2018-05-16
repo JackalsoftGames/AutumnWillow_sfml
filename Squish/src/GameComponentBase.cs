@@ -25,7 +25,7 @@ using Squish.Extensions;
 namespace Squish
 {
     public abstract class GameComponentBase<TGame> :
-        IGameComponent<TGame>,
+        IComponent<TGame>,
         IUpdateable
         where TGame : GameBase
     {

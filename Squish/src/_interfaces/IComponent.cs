@@ -24,7 +24,8 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public interface IGameComponent<TGame>
+    public interface IComponent<TGame> :
+        IUpdateable
         where TGame : GameBase
     {
         TGame Game { get; }

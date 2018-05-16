@@ -24,13 +24,16 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
+    // GetNextActor(x, y), GetNextTile(x, y)
+
+
     public class MapController :
-        GameControllerBase
+        GameComponentBase<Game>
     {
         #region constructors
 
-        public MapController(GameState state) :
-            base(state)
+        public MapController(Game game) :
+            base(game)
         {
         }
         
@@ -40,10 +43,10 @@ namespace AutumnWillow
 
         public bool CanCreate(int x, int y)
         {
-            if (State.ActorCount < State.Actors.Length)
+            if (Game.State.ActorCount < Game.State.Actors.Length)
             {
-                if (State.Bounds.Contains(x, y))
-                    return !State.Occupied[y][x];
+                if (Game.State.Bounds.Contains(x, y))
+                    return !Game.State.Occupied[y][x];
             }
             return false;
         }
@@ -59,10 +62,7 @@ namespace AutumnWillow
 
         public void Remove()
         {
-        }
 
-        public void Transform()
-        {
         }
 
         #endregion
@@ -71,20 +71,20 @@ namespace AutumnWillow
 
         public bool TileExists(int x, int y)
         {
-            return State.Bounds.Contains(x, y);
+            return Game.State.Bounds.Contains(x, y);
         }
 
         public bool IsOccupied(int x, int y)
         {
             if (TileExists(x, y))
-                return State.Occupied[y][x];
+                return Game.State.Occupied[y][x];
             return false;
         }
 
         public void Occupy(int x, int y, bool value)
         {
             if (TileExists(x, y))
-                State.Occupied[y][x] = value;
+                Game.State.Occupied[y][x] = value;
         }
 
         public void Occupy(int x, int y)

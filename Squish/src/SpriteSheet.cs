@@ -88,20 +88,20 @@ namespace Squish
         public static IntRect GetFrame(IntRect[] frames, int[] index, float current, float maximum)
         {
             return (maximum == 0.00f)
-                ? GetFrame(frames, index, 0.00f)
-                : GetFrame(frames, index, current / maximum % 1);
+                ? SpriteSheet.GetFrame(frames, index, 0.00f)
+                : SpriteSheet.GetFrame(frames, index, current / maximum % 1);
         }
 
         public static IntRect GetFrame(IntRect[] frames, float percent)
         {
-            return GetFrame(frames, null, percent);
+            return SpriteSheet.GetFrame(frames, null, percent);
         }
 
         public static IntRect GetFrame(IntRect[] frames, float current, float maximum)
         {
             return (maximum == 0.00f)
-                ? GetFrame(frames, null, 0.00f)
-                : GetFrame(frames, null, current / maximum % 1);
+                ? SpriteSheet.GetFrame(frames, null, 0.00f)
+                : SpriteSheet.GetFrame(frames, null, current / maximum % 1);
         }
 
         #endregion
@@ -130,6 +130,7 @@ namespace Squish
         }
 
         #endregion
+
         #region fields
 
         public Texture Texture;

@@ -25,28 +25,28 @@ using Squish.Extensions;
 namespace AutumnWillow
 {
     public class StatusController :
-        GameControllerBase
+        GameComponentBase<Game>
     {
         #region constructors
 
-        public StatusController(GameState state) :
-            base(state)
+        public StatusController(Game game) :
+            base(game)
         {
         }
-        
+
         #endregion
         #region methods
 
         public override void Update(Time time)
         {
-            if (State.TimeLimit > 0)
+            Game.State.Tick++;
+
+            if (Game.State.Time > 0)
             {
-                if (State.TimeLimitDelay.Value > 0)
-                    State.TimeLimitDelay.Value--;
-                else
+                if (Game.State.TickRate.Value-- == 0)
                 {
-                    State.TimeLimitDelay.Value = State.TimeLimitDelay.Other;
-                    State.TimeLimit--;
+                    Game.State.TickRate.Value = Game.State.TickRate.Other;
+                    Game.State.Time--;
                 }
             }
         }
@@ -54,55 +54,52 @@ namespace AutumnWillow
         #endregion
         #region methods :: time
 
-        public void AddTime(ushort value)
+        public void SetTime(short value, bool relative)
         {
-            if (State.TimeLimit + value >= State.TimeLimitMaximum)
-                State.TimeLimit = State.TimeLimitMaximum;
+            if (relative)
+                Game.State.Time = (short)MathHelper.Clamp(
+                    Game.State.Time + value, Int16.MinValue, Int16.MaxValue);
             else
-                State.TimeLimit += value;
+                Game.State.Time = value;
         }
 
-        public void RemoveTime(ushort value)
+        public void SetTime()
         {
-            if (State.TimeLimit - value <= 0)
-                State.TimeLimit = 0;
-            else
-                State.TimeLimit -= value;
-        }
-
-        public void SetTime(ushort value)
-        {
-            State.TimeLimit = value;
+            Game.State.Time = 0;
         }
 
         #endregion
         #region methods :: score
 
-        public void AddScore(ushort value)
+        public void SetScore(short value, bool relative)
         {
+            if (relative)
+                Game.State.Score = (short)MathHelper.Clamp(
+                    Game.State.Score + value, Int16.MinValue, Int16.MaxValue);
+            else
+                Game.State.Score = value;                
         }
 
-        public void RemoveScore(ushort value)
+        public void SetScore()
         {
-        }
-
-        public void SetScore(ushort value)
-        {
+            Game.State.Score = 0;
         }
 
         #endregion
         #region methods :: gems
 
-        public void AddGems(ushort value)
+        public void SetGems(short value, bool relative)
         {
+            if (relative)
+                Game.State.Gems = (short)MathHelper.Clamp(
+                    Game.State.Gems + value, Int16.MinValue, Int16.MaxValue);
+            else
+                Game.State.Gems = value;
         }
 
-        public void RemoveGems(ushort value)
+        public void SetGems()
         {
-        }
-
-        public void SetGems(ushort value)
-        {
+            Game.State.Gems = 0;
         }
 
         #endregion
@@ -110,22 +107,22 @@ namespace AutumnWillow
 
         public bool HasItem(PlayerIndex player, PlayerInventory value)
         {
-            return ((State.Inventory[(int)player] & value) > 0);
+            return ((Game.State.Inventory[(int)player] & value) > 0);
         }
 
         public void AddItem(PlayerIndex player, PlayerInventory value)
         {
-            State.Inventory[(int)player] |= value;
+            Game.State.Inventory[(int)player] |= value;
         }
 
         public void RemoveItem(PlayerIndex player, PlayerInventory value)
         {
-            State.Inventory[(int)player] &= ~value;
+            Game.State.Inventory[(int)player] &= ~value;
         }
 
         public void RemoveItems(PlayerIndex player)
         {
-            State.Inventory[(int)player] = PlayerInventory.NONE;
+            Game.State.Inventory[(int)player] = PlayerInventory.NONE;
         }
 
         #endregion

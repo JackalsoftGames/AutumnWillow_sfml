@@ -24,13 +24,11 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public sealed class GameContent :
-        GameComponentBase<Game>
+    public sealed class GameContent
     {
         #region constructors
 
-        public GameContent(Game game) :
-            base(game)
+        public GameContent()
         {
             Textures = new AssetManager<Texture>();
             Fonts = new AssetManager<Font>();
@@ -51,13 +49,6 @@ namespace AutumnWillow
 
         public AssetManager<SpriteSheet> Frames { get; private set; }
         public AssetManager<Behavior> Behaviors { get; private set; }
-
-        #endregion
-        #region methods
-
-        public override void Update(Time time)
-        {
-        }
 
         #endregion
     }

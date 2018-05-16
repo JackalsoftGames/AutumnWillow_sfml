@@ -25,8 +25,7 @@ using Squish.Extensions;
 namespace AutumnWillow
 {
     public class BehaviorEventArgs :
-        EventArgs,
-        IGameComponent<Game>
+        EventArgs
     {
         #region constructors
 

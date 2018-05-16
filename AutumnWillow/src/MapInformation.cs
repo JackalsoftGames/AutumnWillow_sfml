@@ -24,24 +24,18 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public sealed class GameControllers :
-        GameComponentBase<Game>
+    public sealed class MapInformation
     {
-        #region constructors
+        public string Title;
+        public string Author;
+        public string[] Tags;
 
-        public GameControllers(Game game) :
-            base(game)
-        {
-            Map = new MapController(game.State);
-            Status = new StatusController(game.State);
-        }
+        public IntRect Bounds;
+        public Tile[][] Tiles;
 
-        #endregion
-        #region properties
+        public ushort Time;
 
-        public MapController Map { get; private set; }
-        public StatusController Status { get; private set; }
-
-        #endregion
+        public ushort GemQuotaEasy;
+        public ushort GemQuotaHard;
     }
 }

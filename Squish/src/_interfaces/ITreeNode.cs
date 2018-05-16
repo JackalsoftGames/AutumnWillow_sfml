@@ -24,8 +24,10 @@ using Squish.Extensions;
 
 namespace Squish
 {
-    public interface INode<T>
-        where T: INode<T>
+    public interface ITreeNode<T>
+        where T : ITreeNode<T>
     {
+        T Parent { get; set; }
+        ICollection<T> Children { get; }
     }
 }

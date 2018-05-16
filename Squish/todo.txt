@@ -1,10 +1,26 @@
 ﻿TODO
-- Interpolation functions
+
+- Figure out INode<T> requirements
+	- Graph vs tree
+	- Query functions:
+		- Add, Remove, Clear
+		- IsRoot, IsBranch, IsLeaf
+		- IsParentOf, IsChildOf, IsSiblingOf
+		- IsAncestorOf, IsDescendantOf, IsRelativeOf
+
 - QuadBatch sorting
+- QuadBatch => VertexBatch
+- QuadBatch.Add() => Sprites, vertices, etc
 - Create a VertexBatch => QuadBatch
-- Random functions (on/in unit circle, etc)
-- INode<T>
+
+- AudioBatch: some kind of manager to ensure we don't hit 256+ instances
+
 - Collection<T>: hash, queue, stack, flexarray, rollingarray, grid
+
+- Interpolation functions
+- Weighted Random.Next() - See http://www.keithschwarz.com/darts-dice-coins/
+	- Random.NextQuad()
+	- Random.NextPolygon()
 
 FIXME
 BUG

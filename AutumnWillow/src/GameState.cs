@@ -24,13 +24,11 @@ using Squish.Extensions;
 
 namespace AutumnWillow
 {
-    public sealed class GameState :
-        GameComponentBase<Game>
+    public sealed class GameState
     {
         #region constructors
 
-        public GameState(Game game, int width, int height) :
-            base(game)
+        public GameState(Game game, int width, int height)
         {
             if (width < 0) width = 0;
             if (height < 0) height = 0;
@@ -38,7 +36,7 @@ namespace AutumnWillow
             Bounds = new IntRect(0, 0, width, height);
 
             Actors = new Actor[2048];
-            ActorCount = 0;
+            ActorsByPosition = new SortedList<Position, Actor>(2048);
             {
                 for (int i = 0; i < Actors.Length; i++)
                     Actors[i] = new Actor();
@@ -55,6 +53,10 @@ namespace AutumnWillow
 
             Input = new PlayerAction[4];
             Inventory = new PlayerInventory[4];
+
+            Time = 200;
+            Tick = 0;
+            TickRate = new Delta2<ushort>(90);
         }
 
         #endregion
@@ -63,7 +65,8 @@ namespace AutumnWillow
         public IntRect Bounds;
 
         public Actor[] Actors;
-        public int ActorCount;
+        public ushort ActorCount;
+        public SortedList<Position, Actor> ActorsByPosition;
 
         public int[][] Tiles;
         public bool[][] Occupied;
@@ -71,71 +74,18 @@ namespace AutumnWillow
         public PlayerAction[] Input;
         public PlayerInventory[] Inventory;
 
-        public ushort TimeLimitMaximum;
-        public ushort TimeLimit;
-        public Delta2<ushort> TimeLimitDelay;
+        public short Time;
+        public short Score;
+        public short Gems;
+
+        public short GemQuotaEasy;
+        public short GemQuotaHard;
+
+        public ushort Tick;
+        public Delta2<ushort> TickRate;
 
         // TODO:
         // queue for remove, bump, push signals, explosion, etc
-
-        #endregion
-        #region methods
-
-        public override void Update(Time time)
-        {
-            Actor actor;
-
-            for (int i = 0; i < ActorCount; i++)
-            {
-                actor = Actors[i];
-                if (actor == null)
-                    continue;
-
-                // Check if actor is in the middle of something
-                if (actor.Timer.Other == 0)
-                    continue;
-
-
-                // Actor is in first frame of movement, validate it
-                if (actor.Timer.Value == 0)
-                {
-                }
-
-                actor.Timer.Value++;
-
-                // Actor is at the halfway point of movement
-                if (actor.Timer.Value == actor.Timer.Other / 2)
-                {
-                }
-
-                // Actor has finished movement
-                if (actor.Timer.Value >= actor.Timer.Other)
-                {
-                }
-            }
-        }
-
-        #endregion
-
-        #region methods :: occupancy
-
-        public bool TileExists(int x, int y)
-        {
-            return Bounds.Contains(x, y);
-        }
-
-        public void Occupy(int x, int y, bool value)
-        {
-            if (TileExists(x, y))
-                Occupied[y][x] = value;
-        }
-
-        public bool IsOccupied(int x, int y)
-        {
-            if (TileExists(x, y))
-                return Occupied[y][x];
-            return false;
-        }
 
         #endregion
     }
